@@ -4,9 +4,9 @@ WITH AgeInfo AS (
     SELECT 
         NAME,
         BIRTHDAY,
-        TIMESTAMPDIFF(YEAR, BIRTHDAY, CURRENT_DATE()) AS AGE
+        TIMESTAMPDIFF(YEAR, BIRTHDAY, CURRENT_DATE) AS AGE
     FROM 
-        megasoftDB.worker
+       worker
 )
 SELECT 
     CASE 

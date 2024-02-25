@@ -1,7 +1,7 @@
 --додано щонайменше 10 працівників, мінімальна зарплата має бути менше за 1000, максимальна - більше за 5 000,
 -- мають бути всі технічні рівні (Trainee, Junior, Middle, Senior)
 
-INSERT INTO megasoftDB.worker (NAME, BIRTHDAY, LEVEL, SALARY)
+INSERT INTO worker (NAME, BIRTHDAY, LEVEL, SALARY)
 VALUES
     ('John Doe', '1990-05-15', 'Trainee', 800),
     ('Jane Smith', '1985-08-20', 'Trainee', 850),
@@ -16,7 +16,7 @@ VALUES
 
 
 --додано щонайменше 5 клієнтів
-INSERT INTO megasoftDB.client (NAME)
+INSERT INTO client (NAME)
 VALUES
     ('Company A'),
     ('Company B'),
@@ -27,7 +27,7 @@ VALUES
 
 
 --додано щонайменше 10 проєктів. Тривалість кожного проєкту (різниця START_DATE та FINISH_DATE) має бути від 1 до 100 місяців.
-INSERT INTO megasoftDB.project (CLIENT_ID, START_DATE, FINISH_DATE)
+INSERT INTO project (CLIENT_ID, START_DATE, FINISH_DATE)
 VALUES
     (1, DATEADD('MONTH', -10, CURRENT_DATE()), CURRENT_DATE()), -- Проєкт тривав 10 місяців
     (2, DATEADD('MONTH', -5, CURRENT_DATE()), CURRENT_DATE()),  -- Проєкт тривав 5 місяців
@@ -42,13 +42,13 @@ VALUES
 
 
 --назначені працівники на кожен проєкт. Над кожним проєктом має працювати від 1 до 5 працівників.
-INSERT INTO megasoftDB.project_worker (PROJECT_ID, WORKER_ID)
+INSERT INTO project_worker (PROJECT_ID, WORKER_ID)
 SELECT
-    PROJECT.ID AS PROJECT_ID,
-    worker.ID AS WORKER_ID
+    rnd_project_workers.project_id AS PROJECT_ID,
+    rnd_worker.rnd_worker_id AS WORKER_ID
 FROM
-    megasoftDB.project AS PROJECT,
-    megasoftDB.worker AS worker
-ORDER BY RAND()
-LIMIT FLOOR(RAND() * 5) + 1;
-
+    (SELECT project.ID AS project_id, ROUND(RAND() * 4) + 1 AS num_workers FROM project) AS rnd_project_workers
+JOIN
+    (SELECT ID AS rnd_worker_id FROM worker ORDER BY RAND() LIMIT 5) AS rnd_worker ON 1 = 1
+ORDER BY
+    rnd_project_workers.project_id;

@@ -4,9 +4,9 @@ SELECT
     project.ID,
     DATEDIFF(MONTH, project.START_DATE, project.FINISH_DATE) AS MONTH_COUNT
 FROM
-    megasoftDB.project
+    project
 WHERE
     DATEDIFF(MONTH, project.START_DATE, project.FINISH_DATE) = (
         SELECT MAX(DATEDIFF(MONTH, START_DATE, FINISH_DATE))
-        FROM megasoftDB.project
+        FROM project
     );

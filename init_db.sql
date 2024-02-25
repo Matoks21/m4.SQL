@@ -1,10 +1,7 @@
---Завдання №1 
+--Завдання №1
 
---створення бази даних для компанії MegaSoft
-СREATE SCHEMA IF NOT EXISTS megasoftDB;
-
---worker - таблиця для працівників.
-CREATE TABLE IF NOT EXISTS megasoftDB.worker (
+--worker - таблиця для працівників
+CREATE TABLE IF NOT EXISTS worker (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     NAME VARCHAR(1000) NOT NULL CHECK(LENGTH(NAME) >= 2),
     BIRTHDAY DATE CHECK(YEAR(BIRTHDAY) > 1900),
@@ -13,13 +10,13 @@ CREATE TABLE IF NOT EXISTS megasoftDB.worker (
 );
 
 --client - таблиця для клієнтів.
-CREATE TABLE IF NOT EXISTS megasoftDB.client (
+CREATE TABLE IF NOT EXISTS client (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     NAME VARCHAR(1000) NOT NULL CHECK(LENGTH(NAME) >= 2)
 );
 
 --project - таблиця для проєктів.
-CREATE TABLE IF NOT EXISTS megasoftDB.project (
+CREATE TABLE IF NOT EXISTS project (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     CLIENT_ID INT,
     START_DATE DATE,
@@ -28,7 +25,7 @@ CREATE TABLE IF NOT EXISTS megasoftDB.project (
 );
 
 --project_worker - таблиця, що показує, які працівники над якими проєктами працюютью
-CREATE TABLE IF NOT EXISTS megasoftDB.project_worker (
+CREATE TABLE IF NOT EXISTS project_worker (
     PROJECT_ID INT,
     WORKER_ID INT,
     PRIMARY KEY (PROJECT_ID, WORKER_ID),

@@ -1,7 +1,7 @@
 --Завдання №3 - знайти працівника з найбільшою заробітною платою
 SELECT NAME, SALARY
-FROM megasoftDB.worker
+FROM worker
 WHERE SALARY = (
     SELECT MAX(SALARY)
-    FROM megasoftDB.worker
+    FROM worker
 );
